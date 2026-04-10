@@ -1,104 +1,402 @@
-/* CSS Variables for Theme Management */
+/* Style guide alignment (light, modern):
+   primary: #3b82f6, success/accent: #06b6d4, background: #f9fafb, surface: #ffffff, text: #111827
+*/
+
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --cc-primary: #3b82f6;
+  --cc-accent: #06b6d4;
+  --cc-bg: #f9fafb;
+  --cc-surface: #ffffff;
+  --cc-text: #111827;
+  --cc-muted: #64748b;
+  --cc-border: rgba(17, 24, 39, 0.12);
+  --cc-shadow: 0 10px 24px rgba(17, 24, 39, 0.08);
+  --cc-radius: 16px;
+
+  --cc-focus: rgba(59, 130, 246, 0.35);
+
+  --cc-toolbar-h: 76px;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+* {
+  box-sizing: border-box;
 }
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+.cc-App {
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: radial-gradient(1200px 800px at 20% 0%, rgba(59, 130, 246, 0.10), transparent 55%),
+    radial-gradient(1200px 800px at 90% 10%, rgba(6, 182, 212, 0.10), transparent 60%),
+    var(--cc-bg);
+  color: var(--cc-text);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Topbar */
+.cc-Topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(10px);
+  background: rgba(249, 250, 251, 0.78);
+  border-bottom: 1px solid var(--cc-border);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.cc-Brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px 10px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.cc-LogoMark {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(6, 182, 212, 0.18));
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  display: grid;
+  place-items: center;
+}
+
+.cc-LogoDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cc-primary), var(--cc-accent));
+  box-shadow: 0 6px 14px rgba(59, 130, 246, 0.32);
+}
+
+.cc-BrandText {
   display: flex;
   flex-direction: column;
+  gap: 2px;
+}
+
+.cc-Title {
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.cc-SubTitle {
+  font-size: 12px;
+  color: var(--cc-muted);
+}
+
+/* Toolbar controls row */
+.cc-Actions {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 16px 14px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.cc-ToolGroup {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 8px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(17, 24, 39, 0.10);
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+.cc-ToolBtn,
+.cc-ActionBtn,
+.cc-LinkBtn {
+  appearance: none;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: #fff;
+  color: var(--cc-text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 650;
+  font-size: 13px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease, background 120ms ease, opacity 120ms ease;
+  user-select: none;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.cc-ToolBtn:hover,
+.cc-ActionBtn:hover,
+.cc-LinkBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(17, 24, 39, 0.08);
+  border-color: rgba(59, 130, 246, 0.22);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.cc-ToolBtn:active,
+.cc-ActionBtn:active,
+.cc-LinkBtn:active {
+  transform: translateY(0px);
+  box-shadow: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.cc-ToolBtn.isActive {
+  border-color: rgba(59, 130, 246, 0.35);
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.12), rgba(6, 182, 212, 0.06));
+}
+
+.cc-ActionBtn.primary {
+  border-color: rgba(59, 130, 246, 0.35);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(6, 182, 212, 0.10));
+}
+
+.cc-ActionBtn.danger {
+  border-color: rgba(239, 68, 68, 0.30);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.cc-ActionBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.cc-Field {
+  display: grid;
+  gap: 6px;
+}
+
+.cc-FieldLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cc-muted);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.cc-FieldHint {
+  font-weight: 700;
+  color: rgba(100, 116, 139, 0.9);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.cc-ColorInput {
+  width: 44px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: #fff;
+  padding: 0;
+  cursor: pointer;
+}
+
+.cc-Select {
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: #fff;
+  padding: 0 10px;
+  font-weight: 650;
+  font-size: 13px;
+  color: var(--cc-text);
+}
+
+.cc-Range {
+  width: 180px;
+  accent-color: var(--cc-primary);
+}
+
+.cc-SizeField {
+  min-width: 220px;
+}
+
+/* Main layout */
+.cc-Main {
+  max-width: 1200px;
+  margin: 18px auto 28px auto;
+  padding: 0 16px;
+}
+
+.cc-CanvasCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(17, 24, 39, 0.10);
+  box-shadow: var(--cc-shadow);
+  border-radius: var(--cc-radius);
+  overflow: hidden;
+}
+
+.cc-CanvasMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.07), rgba(255, 255, 255, 0.0));
+}
+
+.cc-CanvasMetaLeft {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.cc-CanvasMetaRight {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.cc-Pill {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 24, 39, 0.10);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.cc-Pill.subtle {
+  color: rgba(17, 24, 39, 0.72);
+  font-weight: 650;
+}
+
+.cc-LinkBtn {
+  border: none;
+  background: transparent;
+  padding: 8px 10px;
+  border-radius: 10px;
+  color: var(--cc-primary);
+  font-weight: 750;
+}
+
+.cc-LinkBtn:hover {
+  background: rgba(59, 130, 246, 0.08);
+  box-shadow: none;
+  transform: none;
+  border-color: transparent;
+}
+
+/* Canvas stack */
+.cc-CanvasContainer {
+  position: relative;
+  width: 100%;
+  height: min(72vh, 720px);
+  background: #fff;
+}
+
+.cc-Canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cc-CanvasDraw {
+  cursor: crosshair;
+}
+
+.cc-Tips {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: min(360px, calc(100% - 24px));
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  border-radius: 14px;
+  padding: 12px 12px 10px 12px;
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.10);
+}
+
+.cc-TipsTitle {
+  font-weight: 850;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.cc-TipsList {
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(17, 24, 39, 0.78);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.cc-FooterHelp {
+  padding: 10px 14px 14px 14px;
+  font-size: 12px;
+  color: rgba(100, 116, 139, 0.95);
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+  background: rgba(249, 250, 251, 0.6);
+}
+
+/* Focus rings */
+.cc-ToolBtn:focus-visible,
+.cc-ActionBtn:focus-visible,
+.cc-Select:focus-visible,
+.cc-ColorInput:focus-visible,
+.cc-Range:focus-visible,
+.cc-LinkBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--cc-focus);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+/* Responsive: move toolbar groups into a more touch-friendly layout */
+@media (max-width: 900px) {
+  .cc-Actions {
+    justify-content: flex-start;
   }
-  to {
-    transform: rotate(360deg);
+  .cc-Range {
+    width: 160px;
+  }
+  .cc-CanvasContainer {
+    height: min(72vh, 640px);
   }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+@media (max-width: 560px) {
+  .cc-Brand {
+    padding-bottom: 6px;
+  }
+  .cc-SubTitle {
+    display: none;
+  }
+  .cc-Actions {
+    gap: 8px;
+    padding-top: 8px;
+  }
+  .cc-ToolGroup {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .cc-Field {
+    align-items: center;
+  }
+  .cc-SizeField {
+    min-width: auto;
+  }
+  .cc-Range {
+    width: 220px;
+  }
+  .cc-CanvasContainer {
+    height: min(70vh, 580px);
+  }
+  .cc-CanvasDraw {
+    cursor: default;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .cc-ToolBtn,
+  .cc-ActionBtn,
+  .cc-LinkBtn {
+    transition: none;
   }
 }
